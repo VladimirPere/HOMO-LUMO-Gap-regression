@@ -1,0 +1,14 @@
+Baseline MAE (predict mean): 0.0416 Hartree
+
+
+Morgan Ridge -- Best Alpha: {'regressor__alpha': 100}
+Morgan Ridge -- Best MAE: 0.041205627852998354
+
+Morgan Random Forests -- Best Parameters: {'regressor__max_depth': None, 'regressor__min_samples_leaf': 6, 'regressor__n_estimators': 299}
+Morgan Random Forests -- Best MAE: 0.03997667548083083
+
+Descriptors Ridge -- Best Alpha: {'regressor__alpha': 0.0001}
+Descriptors Ridge -- Best MAE: 0.041207720635337515
+
+Descriptors Random Forests -- Best Parameters: {'regressor__max_depth': 16, 'regressor__min_samples_leaf': 19, 'regressor__n_estimators': 148}
+Descriptors Random Forests -- Best MAE: 0.04035298928007717

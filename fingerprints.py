@@ -13,7 +13,7 @@ CSV_DIR = BASE_DIR/'csv'
 
 # morgan generator & variables
 radius = 2
-fpSize = 2048
+fpSize = 1024
 morgan_gen = rdFingerprintGenerator.GetMorganGenerator(radius=radius, fpSize=fpSize)
 
 
@@ -41,4 +41,4 @@ fp_df['gap'] = raw['gap'][valid_mask].values
 print(fp_df.shape)  # (131970, 2050) — 2048 bits + smiles + gap
 print(fp_df.head())
 
-fp_df.to_csv(CSV_DIR/'qm9_fingerprints.csv', index=False)
+fp_df.to_csv(CSV_DIR/'qm9_fingerprints(1024).csv', index=False)

@@ -33,5 +33,5 @@ print(df['gap'].describe())
 # checking baseline
 baseline_mae = np.mean(np.abs(df['gap'] - df['gap'].mean()))
 print(f'Baseline MAE (predict mean): {baseline_mae:.4f} Hartree')
-
+exit()
 df.to_csv(CSV_DIR/'qm9_raw.csv', index=False)
