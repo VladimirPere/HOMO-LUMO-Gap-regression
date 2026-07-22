@@ -34,7 +34,7 @@ def get_descriptors(smiles):
 
         # rings
         'NumAromaticRings': Descriptors.NumAromaticRings(mol),              # 'c1ccccc1' (double bonds)
-        'NumAliphaticRings': rdMolDescriptors.CalcNumAliphaticRings(mol),   # may include double bonds but ot aromatic
+        'NumAliphaticRings': rdMolDescriptors.CalcNumAliphaticRings(mol),   # may include double bonds but not aromatic
         'NumSaturatedRings': rdMolDescriptors.CalcNumSaturatedRings(mol),   # 'C1CCCCC1' (single bonds only)
         'NumHeterocycles': rdMolDescriptors.CalcNumHeterocycles(mol),       # rings with at least one non-C atom
 
