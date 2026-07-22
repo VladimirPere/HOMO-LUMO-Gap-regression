@@ -12,3 +12,22 @@ Descriptors Ridge -- Best MAE: 0.041207720635337515
 
 Descriptors Random Forests -- Best Parameters: {'regressor__max_depth': 16, 'regressor__min_samples_leaf': 19, 'regressor__n_estimators': 148}
 Descriptors Random Forests -- Best MAE: 0.04035298928007717
+
+{
+    "morgan_ridge": {
+        "alpha": 100
+    },
+    "desc_ridge": {
+        "alpha": 0.0001
+    },
+    "morgan_rf": {
+        "max_depth": null,
+        "min_samples_leaf": 6,
+        "n_estimators": 299
+    },
+    "desc_rf": {
+        "max_depth": 16,
+        "min_samples_leaf": 19,
+        "n_estimators": 148
+    }
+}
