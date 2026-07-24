@@ -1,10 +1,10 @@
 # SMILES → Morgan fingerprints → save fingerprint
 # fingerprints.py output: qm9_fingerprints.csv [smiles, bit_0, bit_1, ... gap]
 
+import numpy as np
+import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import rdFingerprintGenerator
-import pandas as pd
-import numpy as np
 from pathlib import Path
 
 # csv folder directory
