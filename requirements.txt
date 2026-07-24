@@ -3,8 +3,8 @@ matplotlib
 numpy
 pandas
 seaborn
+scikit-learn
 scipy
-sklearn
 
 # cheminfomatics
 deepchem
