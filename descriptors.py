@@ -1,9 +1,9 @@
 # SMILES → physicochemical descriptors → save
 # descriptors.py output:  qm9_descriptors.csv  [smiles, MolWt, LogP, ... gap]
 
+import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import Descriptors, rdMolDescriptors
-import pandas as pd
 from pathlib import Path
 
 # csv folder directory

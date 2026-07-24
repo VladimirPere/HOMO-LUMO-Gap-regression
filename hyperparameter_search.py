@@ -4,16 +4,16 @@
 # --- HYPERPARAMETER SEARCH (on 20% of data) ---
 # --- PRINT HYPERPARAMETERS TO JSON
 
-import gc
 import pandas as pd
-from pathlib import Path
-import json
-from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
+from scipy.stats import randint
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import Ridge
+from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-from scipy.stats import randint
+import gc
+import json
+from pathlib import Path
 
 # csv folder directory
 BASE_DIR = Path(__file__).parent
@@ -63,7 +63,7 @@ forests_param = {
     'regressor__min_samples_leaf': randint(1, 20)
 }
 
-#                   ---Ridge Morgan---
+#                   ---Morgan Ridge---
 morgan_ridge = Pipeline(steps=[
     ('preprocessor', StandardScaler()),
     ('regressor', Ridge())
@@ -85,7 +85,7 @@ best_score = -morgan_ridge_search.best_score_
 print(f'Morgan Ridge -- Best Alpha: {morg_rid_params}')
 print(f'Morgan Ridge -- Best MAE: {best_score}')
 
-#                   ---Random Forests Morgan---
+#                   ---Morgan Random Forests---
 morgan_forests = Pipeline(steps=[
     ('preprocessor', StandardScaler()),
     ('regressor', RandomForestRegressor(random_state=random_state))
@@ -135,7 +135,7 @@ d_tune, _, dt_tune, _ = train_test_split(
 del ddata, d_test, dt_test
 gc.collect()
 
-#                    ---Description Ridge---
+#                    ---Descriptors Ridge---
 desc_ridge = Pipeline(steps=[
     ('preprocessor', StandardScaler()),
     ('regressor', Ridge())
@@ -158,7 +158,7 @@ print(f'Descriptors Ridge -- Best Alpha: {desc_rid_params}')
 print(f'Descriptors Ridge -- Best MAE: {best_score}')
 
 
-#                   ---Random Forests Descriptors---
+#                   ---Descriptors Random Forests---
 desc_forests = Pipeline(steps=[
     ('preprocessor', StandardScaler()),
     ('regressor', RandomForestRegressor(random_state=random_state))
