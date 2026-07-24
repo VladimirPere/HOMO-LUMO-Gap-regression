@@ -1,0 +1,14 @@
+# core libraries
+matplotlib
+numpy
+pandas
+seaborn
+scipy
+sklearn
+
+# cheminfomatics
+deepchem
+rdkit
+
+# deepchem dependency
+tensorflow==2.21.0

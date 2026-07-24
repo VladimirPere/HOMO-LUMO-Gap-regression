@@ -11,3 +11,16 @@ Descriptors Ridge -- Best MAE: 0.041207720635337515
 
 Descriptors Random Forests -- Best Parameters: {'regressor__max_depth': 16, 'regressor__min_samples_leaf': 19, 'regressor__n_estimators': 148}
 Descriptors Random Forests -- Best MAE: 0.04035298928007717
+
+Of Note: The Random Forests appear to outperform the Ridge models may be caused by overfitting: test set needed for further hypothesizing.
+Additionally, the models only barely ouytperform the baseline. This may be because HOMO-LUMO gap is a 3d structure and cannot be fully
+expressed using 2d data like SMILES strings and Mol's
+
+Morgan Ridge -- Training MAE: 0.040271 ± 0.000153
+Morgan Ridge -- Test MAE: 0.040489
+Morgan Random Forests -- Train MAE: 0.0293
+Morgan Random Forests -- Test MAE: 0.0373
+Descriptors Ridge -- Training MAE: 0.041086 ± 0.000139
+Descriptors Ridge -- Test MAE: 0.041305
+Descriptors Random Forests -- Training MAE: 0.038451
+Descriptors Random Forests -- Test MAE: 0.039979
