@@ -22,7 +22,7 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
   
 <p align="center">
   <img src="images/Oxygen_molecule_orbitals_diagram-en.svg.webp" width="500" alt="Molecular Orbital diagram of Oxygen"><br>
-  Figure 1.
+  Figure 1. Molecular Orbital diagram of Oxygen
 </p>
 
 ## Procedure
@@ -49,7 +49,7 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
 ## Results
 <p align="center">
   <img src="images/model_comparison.png" width="500" alt="Graph of all 4 model's training and test scores"><br>
-  Figure 2.
+  Figure 2. Graph of all 4 model's training and test scores
 </p>
 
 - Morgan Ridge showed a very small improvement of ~.0011 over baseline. No known overfitting or underfitting.
