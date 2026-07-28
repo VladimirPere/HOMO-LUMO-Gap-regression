@@ -1,6 +1,7 @@
 # Calculating HOMO-LUMO Gap Via Fingerprint and Descriptor methods
 
-Supervised learning of ~ 130,000 molecules using Ridge and Random Forests Regression. 
+Supervised learning of ~ 130,000 molecules using Ridge and Random Forests Regression.
+
 DeepChem QM9 dataset used for SMILES strings and Gap energy levels.
 
 ## Libraries
@@ -21,6 +22,7 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
   
 <p align="center">
   <img src="images/Oxygen_molecule_orbitals_diagram-en.svg.webp" width="500" alt="Molecular Orbital diagram of Oxygen">
+  
   Figure 1.
 </p>
 
@@ -48,6 +50,7 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
 ## Results
 <p align="center">
   <img src="images/model_comparison.png" width="500" alt="Graph of all 4 model's training and test scores">
+  
   Figure 2.
 </p>
 
