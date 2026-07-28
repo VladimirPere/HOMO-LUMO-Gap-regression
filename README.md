@@ -21,8 +21,7 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
 - The HOMO-LUMO Gap can determine how easily a molecule can be excited. A low gap signifies an easily excitable molecule, while a big gap is less excitable.
   
 <p align="center">
-  <img src="images/Oxygen_molecule_orbitals_diagram-en.svg.webp" width="500" alt="Molecular Orbital diagram of Oxygen">
-  
+  <img src="images/Oxygen_molecule_orbitals_diagram-en.svg.webp" width="500" alt="Molecular Orbital diagram of Oxygen"><br>
   Figure 1.
 </p>
 
@@ -49,8 +48,7 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
 
 ## Results
 <p align="center">
-  <img src="images/model_comparison.png" width="500" alt="Graph of all 4 model's training and test scores">
-  
+  <img src="images/model_comparison.png" width="500" alt="Graph of all 4 model's training and test scores"><br>
   Figure 2.
 </p>
 
