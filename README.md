@@ -75,3 +75,4 @@ shortened from years to hours. This can be useful for drug discovery, as time is
 - Morgan RF overfitting could be reduced with further hyperparameter tuning on a machine with more RAM.
 - 1024-bit fingerprints were used instead of 2048-bit due to memory constraints. Higher bit counts may improve Morgan model performance.
 - Gradient boosting methods (XGBoost, LightGBM) were not explored and may outperform Random Forests on this dataset.
+- SHAP values were not used in descriptors dataset. Feature selection may limit noise during training.
