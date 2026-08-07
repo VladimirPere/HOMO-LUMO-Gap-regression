@@ -58,7 +58,7 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
 - Descriptor RF showed an improvement of ~.0016 Hartree. A .0015 difference is significant enough to be overfitting, more tuning required.
 
 <p align="center">
-  <img src="images/rsquared_comparisons.png" width="300" alt="Comparison of true vs pred r^2 values"><br>
+  <img src="images/rsquared_comparisons.png" width="500" alt="Comparison of true vs pred r^2 values"><br>
   Figure 3. Graph of model's true vs predicted values with R^2 values
 </p>
 
