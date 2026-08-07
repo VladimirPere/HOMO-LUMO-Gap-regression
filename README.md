@@ -57,6 +57,14 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
 - Descriptor Ridge showed the smallest improvement of ~.0003 over baseline. No known overfitting or underfitting.
 - Descriptor RF showed an improvement of ~.0016 Hartree. A .0015 difference is significant enough to be overfitting, more tuning required.
 
+<p align="center">
+  <img src="images/rsquared_comparisons.png" width="300" alt="Comparison of true vs pred r^2 values"><br>
+  Figure 3. Graph of model's true vs predicted values with R^2 values
+</p>
+
+Above graph shows that none of the models performed particularly well. The best R^2 value was .132 from the Morgan Fingerprint Random Forest. This is well below a good score of around
+.8 R^2. This indicates that the molecules that were trained and tested have too many differences to accurately generalize.
+
 ## Applications of Findings
 ### The HOMO-LUMO gap is used in many fields.
 - The gap relates to the reactivity and metabolic stability of a molecule, both critical properties in drug discovery. Reactive molecules may 
