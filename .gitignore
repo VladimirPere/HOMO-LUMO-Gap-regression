@@ -1,3 +1,2 @@
-csv/
-__pycache__/
-part2/csv/
+**/csv/
+**/__pycache__/
