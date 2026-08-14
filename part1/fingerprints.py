@@ -38,7 +38,7 @@ fp_df.insert(0, 'smiles', raw['smiles'][valid_mask].values)
 fp_df['gap'] = raw['gap'][valid_mask].values
 
 # final QA
-print(fp_df.shape)  # (131970, 2050) — 2048 bits + smiles + gap
+print(fp_df.shape)  # (131970, 1026) — 1024 bits + smiles + gap
 print(fp_df.head())
 
 fp_df.to_csv(CSV_DIR/'qm9_fingerprints(1024).csv', index=False)
