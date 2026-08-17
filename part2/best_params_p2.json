@@ -1,0 +1,30 @@
+{
+    "morgan_xgb": {
+        "subsample": 0.9,
+        "n_estimators": 300,
+        "max_depth": 16,
+        "learning_rate": 0.05,
+        "colsample_bytree": 1.0
+    },
+    "morgan_rf": {
+        "subsample": 0.9,
+        "n_estimators": 200,
+        "max_depth": 16,
+        "learning_rate": 1.0,
+        "colsample_bytree": 0.5
+    },
+    "desc_xgb": {
+        "subsample": 0.9,
+        "n_estimators": 300,
+        "max_depth": 12,
+        "learning_rate": 0.01,
+        "colsample_bytree": 0.5
+    },
+    "desc_rf": {
+        "subsample": 0.7,
+        "n_estimators": 300,
+        "max_depth": 16,
+        "learning_rate": 1.0,
+        "colsample_bytree": 0.5
+    }
+}

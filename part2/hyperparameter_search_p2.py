@@ -35,9 +35,9 @@ n_jobs = -1
 xgb_param = {
     'regressor__n_estimators': [50, 100, 200, 300, 500],
     'regressor__max_depth': [8, 12, 16],
-    'regressor__learning_rate': [0.01, 0.05, 0.1, 0.2, 0.5],
-    'regressor__subsample': [0.7, 1.0, 1.5, 2.0],
-    'regressor__colsample_bytree': [0.7, 1.0, 1.5, 2.0]
+    'regressor__learning_rate': [0.01, 0.05, 0.1, 0.2, 0.5, 1.0],
+    'regressor__subsample': [0.6, 0.7, 0.9, 1.0],
+    'regressor__colsample_bytree': [0.5, 0.7, 1.0]
 }
 
 # data storage
@@ -71,17 +71,19 @@ morg_XGB_search = RandomizedSearchCV(
     morg_XGB,
     param_distributions=xgb_param,
     n_iter=100,
-    cv=5,
+    cv=3,
     n_jobs=2,
     scoring='neg_mean_absolute_error',
     random_state=random_state,
-    verbose=1
+    verbose=2
 )
 
 morg_XGB_search.fit(m_train, mt_train)
 Morg_XGB_best_params = morg_XGB_search.best_params_
 del morg_XGB, morg_XGB_search
 gc.collect()
+
+print(f'Morg XGB: {Morg_XGB_best_params}')
 
 # Random Forest
 morg_RF = Pipeline(steps=[
@@ -98,11 +100,11 @@ morg_RF_search = RandomizedSearchCV(
     morg_RF,
     param_distributions=xgb_param,
     n_iter=100,
-    cv=5,
+    cv=3,
     n_jobs=2,
     scoring='neg_mean_absolute_error',
     random_state=random_state,
-    verbose=1
+    verbose=2
 )
 
 morg_RF_search.fit(m_train, mt_train)
@@ -110,6 +112,7 @@ Morg_RF_best_params = morg_RF_search.best_params_
 
 del m_train, m_test, mt_train, mt_test, mdata, morg_RF, morg_RF_search
 gc.collect()
+print(f'Morg RF: {Morg_RF_best_params}')
 
 # descriptor data
 desc = pd.read_csv(CSV_DIR/'qm9_descriptors_p2.csv')
@@ -148,22 +151,22 @@ desc_RF = Pipeline(steps=[
 desc_XGB_search = RandomizedSearchCV(
     desc_XGB,
     param_distributions=xgb_param,
-    n_iter=100,
-    cv=5,
+    n_iter=150,
+    cv=3,
     n_jobs=-1,
     scoring='neg_mean_absolute_error',
     random_state=random_state,
-    verbose=1
+    verbose=2
 )
 desc_RF_search = RandomizedSearchCV(
     desc_RF,
     param_distributions=xgb_param,
     n_iter=100,
-    cv=5,
+    cv=3,
     n_jobs=-1,
     scoring='neg_mean_absolute_error',
     random_state=random_state,
-    verbose=1
+    verbose=2
 )
 
 desc_XGB_search.fit(d_train, dt_train)
@@ -174,7 +177,7 @@ print(f'Morg RF: {Morg_RF_best_params}')
 
 print(f'Desc XGB: {desc_XGB_search.best_params_}')
 print(f'desc RF: {desc_RF_search.best_params_}')
-exit()
+
 # ---Descriptors XGBoost SHAP analysis---
 # shap values
 XGB_preprocessor = desc_XGB_search.best_estimator_.named_steps['scaler']
