@@ -1,9 +1,35 @@
-Morg XGB: {'regressor__subsample': 0.9, 'regressor__n_estimators': 300, 'regressor__max_depth': 16, 'regressor__learning_rate': 0.05, 'regressor__colsample_bytree': 1.0}
-
-Morg RF: {'regressor__subsample': 0.9, 'regressor__n_estimators': 200, 'regressor__max_depth': 16, 'regressor__learning_rate': 1.0, 'regressor__colsample_bytree': 0.5}
-
-
+#       Hyperparameter search file
 Morg XGB: {'regressor__subsample': 0.9, 'regressor__n_estimators': 300, 'regressor__max_depth': 16, 'regressor__learning_rate': 0.05, 'regressor__colsample_bytree': 1.0}
 Morg RF: {'regressor__subsample': 0.9, 'regressor__n_estimators': 200, 'regressor__max_depth': 16, 'regressor__learning_rate': 1.0, 'regressor__colsample_bytree': 0.5}
 Desc XGB: {'regressor__subsample': 0.9, 'regressor__n_estimators': 300, 'regressor__max_depth': 12, 'regressor__learning_rate': 0.01, 'regressor__colsample_bytree': 0.5}
 desc RF: {'regressor__subsample': 0.7, 'regressor__n_estimators': 300, 'regressor__max_depth': 16, 'regressor__learning_rate': 1.0, 'regressor__colsample_bytree': 0.5}
+
+#       Feature selection file
+                    feature  mean_shap
+1             NumHeavyAtoms   0.004822
+0                     MolWt   0.003792
+9          MinPartialCharge   0.002333
+5              FractionCSP3   0.001774
+8          MaxPartialCharge   0.001765
+21                     TPSA   0.001671
+20                     LogP   0.001663
+14    FractionAromaticAtoms   0.001432
+22        NumRotatableBonds   0.001229
+4                      NumF   0.001079
+2                      NumN   0.000865
+3                      NumO   0.000676
+13         NumAromaticAtoms   0.000526
+6            NumDoubleBonds   0.000453
+18                 NumRings   0.000414
+15        NumAliphaticRings   0.000398
+7            NumTripleBonds   0.000242
+17          NumHeterocycles   0.000241
+16        NumSaturatedRings   0.000142
+10         NumAromaticRings   0.000112
+12  NumAromaticHeterocycles   0.000088
+11   NumAromaticCarbocycles   0.000010
+19       NumBridgeheadAtoms   0.000002
+Low SHAP features: ['NumDoubleBonds', 'NumRings', 'NumAliphaticRings', 'NumTripleBonds', 'NumHeterocycles', 'NumSaturatedRings', 'NumAromaticRings', 'NumAromaticHeterocycles', 'NumAromaticCarbocycles', 'NumBridgeheadAtoms']
+Full features MAE: 0.0361
+Reduced features MAE: 0.0599
+Difference: 0.0238
