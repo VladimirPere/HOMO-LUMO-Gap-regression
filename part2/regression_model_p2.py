@@ -23,6 +23,10 @@ morgan = pd.read_csv(CSV_DIR/'qm9_fingerprints_p2(2048).csv')
 
 # variables
 random_state = 96
+device = 'cpu'
+tree_method = 'hist'
+objective = 'reg:squarederror'
+n_jobs = -1
 
 # morgan data storage
 target_name = 'gap'
@@ -39,19 +43,26 @@ m_train, m_test, mt_train, mt_test = train_test_split(
     random_state=random_state
 )
 
-with open(BASE_DIR / 'best_params.json', 'r') as f:
+with open(BASE_DIR / 'best_params_p2.json', 'r') as f:
     best_params = json.load(f)
 
 #                   ---Morgan XGBoost---
-morgan_XGB = Pipeline(steps=[
+morgan_xgb = Pipeline(steps=[
     ('preprocessor', StandardScaler()),
-    ('regressor', xgb.XGBRegressor(**best_params['morgan_xgb']))
-])
+    ('regressor', xgb.XGBRegressor(
+        **best_params['morg_xgb'],
+        device=device,
+        tree_method=tree_method,
+        random_state=random_state,
+        objective=objective,
+        n_jobs=n_jobs)
+        )
+    ]
+)
+morgan_xgb.fit(m_train, mt_train)
 
-morgan_XGB.fit(m_train, mt_train)
-
-cv_scores = cross_val_score(morgan_XGB, m_train, mt_train, cv=5, scoring='neg_mean_absolute_error')
-morg_xgb_pred = morgan_XGB.predict(m_test)
+cv_scores = cross_val_score(morgan_xgb, m_train, mt_train, cv=5, scoring='neg_mean_absolute_error')
+morg_xgb_pred = morgan_xgb.predict(m_test)
 test_score = mean_absolute_error(mt_test, morg_xgb_pred)
 
 print(f'Morgan XGBoost -- Training MAE: {-cv_scores.mean():4f} ± {cv_scores.std():4f}')
@@ -64,22 +75,28 @@ test_scores.append(test_score)
 #                   ---Morgan Random Forests---
 morgan_rf = Pipeline(steps=[
     ('preprocessor', StandardScaler()),
-    ('regressor', xgb.XGBRFRegressor(**best_params['morgan_rf'], n_jobs=-1, random_state=random_state))
-])
-
+        ('regressor', xgb.XGBRFRegressor(
+        **best_params['morg_rf'],
+        device=device,
+        tree_method=tree_method,
+        random_state=random_state,
+        objective=objective,
+        n_jobs=n_jobs)
+        )
+    ]
+)
 morgan_rf.fit(m_train, mt_train)
 
+cv_scores = cross_val_score(morgan_rf, m_train, mt_train, cv=5, scoring='neg_mean_absolute_error')
 morg_rf_pred = morgan_rf.predict(m_test)
-train_score = mean_absolute_error(mt_train, morgan_rf.predict(m_train))
 test_score = mean_absolute_error(mt_test, morg_rf_pred)
 
-print(f'Morgan Random Forests -- Train MAE: {train_score:.4f}')
-print(f'Morgan Random Forests -- Test MAE: {test_score:.4f}')
+print(f'Morgan Random Forests -- Training MAE: {-cv_scores.mean():4f} ± {cv_scores.std():4f}')
+print(f'Morgan Random Forests -- Test MAE: {test_score:4f}')
 
-
-train_scores.append(train_score)
+# store for graph
+train_scores.append(-cv_scores.mean())
 test_scores.append(test_score)
-
 
 del m_train, mt_train, mdata, mtarget
 gc.collect()
@@ -90,8 +107,8 @@ desc = pd.read_csv(CSV_DIR/'qm9_descriptors_p2.csv')
 dtarget = desc[target_name]
 ddata = desc.drop(columns=['smiles', target_name])
 
-#Remove features where SHAP is 
-
+#                   ---SHAP---
+# Due to columns low SHAP values; All columns were used: See feature_selection.py
 
 d_train, d_test, dt_train, dt_test = train_test_split(
     ddata, 
@@ -103,9 +120,16 @@ d_train, d_test, dt_train, dt_test = train_test_split(
 #                   ---Descriptors XGBoost---
 desc_xgb = Pipeline(steps=[
     ('preprocessor', StandardScaler()),
-    ('regressor', xgb.XGBRegressor(**best_params['desc_xgb']))
-])
-
+        ('regressor', xgb.XGBRegressor(
+        **best_params['desc_xgb'],
+        device=device,
+        tree_method=tree_method,
+        random_state=random_state,
+        objective=objective,
+        n_jobs=n_jobs)
+        )
+    ]
+)
 desc_xgb.fit(d_train, dt_train)
 
 cv_scores = cross_val_score(desc_xgb, d_train, dt_train, cv=5, scoring='neg_mean_absolute_error')
@@ -118,19 +142,24 @@ print(f'Descriptors XGBoost-- Test MAE: {test_score:4f}')
 train_scores.append(-cv_scores.mean())
 test_scores.append(test_score)
 
-
-
 #                   ---Descriptors Random Forests---
 desc_rf = Pipeline(steps=[
     ('preprocessor', StandardScaler()),
-    ('regressor', xgb.XGBRFRegressor(**best_params['desc_rf'], n_jobs=-1, random_state=random_state))
-])
-
+        ('regressor', xgb.XGBRFRegressor(
+        **best_params['desc_rf'],
+        device=device,
+        tree_method=tree_method,
+        random_state=random_state,
+        objective=objective,
+        n_jobs=n_jobs)
+        )
+    ]
+)
 desc_rf.fit(d_train, dt_train)
 
-cv_scores = cross_val_score(desc_xgb, d_train, dt_train, cv=5, scoring='neg_mean_absolute_error')
+cv_scores = cross_val_score(desc_rf, d_train, dt_train, cv=5, scoring='neg_mean_absolute_error')
 desc_rf_pred = desc_rf.predict(d_test)
-test_score = mean_absolute_error(dt_test, desc_xgb_pred)
+test_score = mean_absolute_error(dt_test, desc_rf_pred)
 
 print(f'Descriptors Random Forests -- Training MAE: {-cv_scores.mean():4f} ± {cv_scores.std():4f}')
 print(f'Descriptors Random Forests -- Test MAE: {test_score:4f}')
@@ -142,7 +171,7 @@ test_scores.append(test_score)
 # 1st graph
 # make graph of predictions vs true values
 fig, axs = plt.subplots(2, 2, figsize=(14, 10))
-titles = ['Morgan Ridge', 'Morgan Random Forests', 'Descriptor Ridge', 'Descriptor Random Forests']
+titles = ['Morgan XGBoost', 'Morgan Random Forests', 'Descriptor XGBoost', 'Descriptor Random Forests']
 
 datasets = [(mt_test, morg_xgb_pred), (mt_test, morg_rf_pred), (dt_test, desc_xgb_pred), (dt_test, desc_rf_pred)]
 
@@ -158,7 +187,7 @@ for ax, (true, pred), title in zip(axs.flat, datasets, titles):
 
     ax.plot(true_sorted, best_fit_line, color='red', label=f'Best Fit Line: {slope:.2f}x + {intercept:.2f}')
 
-    # Annotate the R^2 value on the specific axis
+    # annotate the R^2 value on the specific axis
     ax.text(
         0.05,
         0.95,
@@ -170,7 +199,7 @@ for ax, (true, pred), title in zip(axs.flat, datasets, titles):
 
 fig.supxlabel('True HOMO-LUMO Gap (Hartree)')
 fig.supylabel('Predicted HOMO-LUMO Gap (Hartree)')
-fig.suptitle('Predictions vs True Values of HOMO-LUMO Gaps')
+fig.suptitle('Predictions vs True Values of HOMO-LUMO Gaps for Aromatic Data')
 
 plt.tight_layout()
 os.makedirs(BASE_DIR / 'images', exist_ok=True)
@@ -201,7 +230,7 @@ ax.axhline(y=baseline, color='red', linestyle='--', linewidth=1.5,
            label=f'Baseline MAE ({baseline})')
 
 # set labels
-ax.set_title('Train vs Test MAE by Model and Feature Set\n(SHAP Used on Descriptors Dataset)')
+ax.set_title('Train vs Test MAE by Model and Feature Set for Aromatic Dataset\n(5 Fold CV Scoring)')
 ax.set_ylabel('MAE (Hartree)')
 ax.set_xlabel('Model')
 ax.set_ylim(0, 0.055)
