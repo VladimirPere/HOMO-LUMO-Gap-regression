@@ -50,7 +50,7 @@ with open(BASE_DIR / 'best_params_p2.json', 'r') as f:
 morgan_xgb = Pipeline(steps=[
     ('preprocessor', StandardScaler()),
     ('regressor', xgb.XGBRegressor(
-        **best_params['morg_xgb'],
+        **best_params['morgan_xgb'],
         device=device,
         tree_method=tree_method,
         random_state=random_state,
@@ -76,7 +76,7 @@ test_scores.append(test_score)
 morgan_rf = Pipeline(steps=[
     ('preprocessor', StandardScaler()),
         ('regressor', xgb.XGBRFRegressor(
-        **best_params['morg_rf'],
+        **best_params['morgan_rf'],
         device=device,
         tree_method=tree_method,
         random_state=random_state,
