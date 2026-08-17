@@ -5,6 +5,8 @@ pandas==3.0.3
 seaborn==0.13.2
 scikit-learn==1.8.0
 scipy==1.17.1
+shap==0.52.0
+xgboost==3.4.0
 
 # cheminformatics
 deepchem==2.5.0
