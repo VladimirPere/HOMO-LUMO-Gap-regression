@@ -33,3 +33,13 @@ Low SHAP features: ['NumDoubleBonds', 'NumRings', 'NumAliphaticRings', 'NumTripl
 Full features MAE: 0.0361
 Reduced features MAE: 0.0599
 Difference: 0.0238
+
+#       Regression Models file
+Morgan XGBoost -- Training MAE: 0.034315 ± 0.000319
+Morgan XGBoost -- Test MAE: 0.034230
+Morgan Random Forests -- Training MAE: 0.036944 ± 0.000596
+Morgan Random Forests -- Test MAE: 0.037426
+Descriptors XGBoost -- Training MAE: 0.035718 ± 0.000497
+Descriptors XGBoost-- Test MAE: 0.035772
+Random Forests -- Training MAE: 0.035829 ± 0.000468
+Descriptors Random Forests -- Test MAE: 0.035939

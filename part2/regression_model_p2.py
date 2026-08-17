@@ -205,7 +205,6 @@ plt.tight_layout()
 os.makedirs(BASE_DIR / 'images', exist_ok=True)
 plt.savefig(BASE_DIR / 'images/rsquared_comparisons_p2.png', dpi=150, bbox_inches='tight')
 plt.show()
-exit()
 
 #                   ---Graphing MAE---
 results_df = pd.DataFrame({
