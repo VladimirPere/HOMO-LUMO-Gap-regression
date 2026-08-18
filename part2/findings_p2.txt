@@ -31,8 +31,26 @@ desc RF: {'regressor__subsample': 0.7, 'regressor__n_estimators': 300, 'regresso
 19       NumBridgeheadAtoms   0.000002
 Low SHAP features: ['NumDoubleBonds', 'NumRings', 'NumAliphaticRings', 'NumTripleBonds', 'NumHeterocycles', 'NumSaturatedRings', 'NumAromaticRings', 'NumAromaticHeterocycles', 'NumAromaticCarbocycles', 'NumBridgeheadAtoms']
 Full features MAE: 0.0361
-Reduced features MAE: 0.0599
-Difference: 0.0238
+Reduced features MAE: 0.0363
+Difference: 0.0002
+
+# SHAP
+It can be seen that the features most important are NumHeavyAtoms, MolWt, MinPartialCharge, FractionCSP3, and MaxPartialCharge.
+- NumHeavyAtoms and MolWt correlate with molecular size. Larger molecules have a larger pi system and more electron delocalization. This causes 
+a smaller HOMO-LUMO Gap as larger conjugated systems have more closely spaced energy levels. Also called particle-in-a-box effect.
+- MinPartialCharge and MaxPartialCharge are also imporant as the difference in charges will pull electrons further or closer to the nucleus or site of 
+partial charge. This greatly lowers (or increases for MaxPartialCharge) the HOMO. However, because the LUMO is further it will be less affected
+by the charge and therefore change less if an electron is in the LUMO.
+- FractionCSP3 measure what fraction of carbons are sp3 hybridized. sp3 carbons have no p orbitals available for pi bonding, so fewer pi electrons are available
+for conjugation (bonding). Less conjugation means more local electrons and therefore the HOMO-LUMO Gap increases.
+This is given by E=n^2h^2/8mL^2 where L is delcalization. Higher L = less energy = smaller gap.
+- While not shown, the Random Forests regressor showed similar results with only TPSA being higher. It is unknown why this is as TPSA is a 3d 
+descriptor and makes little sense of the 3d HOMO-LUMO Gap. TPSA may be affected by polar groups which could then change HOMO-LUMO Gap. further research required
+
+Ring features such as NumAromaticCarbocycles, NumAromaticHeterocycles, and NumAromaticRings all appear to be at the bottom.
+- This makes sense as the data already has bee processed to have at least 1 Aromatic ring and so the affect of this will be 
+diminished as the columns likely consist of mostly 1 or 2.
+
 
 #       Regression Models file
 Morgan XGBoost -- Training MAE: 0.034315 ± 0.000319
@@ -41,5 +59,18 @@ Morgan Random Forests -- Training MAE: 0.036944 ± 0.000596
 Morgan Random Forests -- Test MAE: 0.037426
 Descriptors XGBoost -- Training MAE: 0.035718 ± 0.000497
 Descriptors XGBoost-- Test MAE: 0.035772
-Random Forests -- Training MAE: 0.035829 ± 0.000468
+Descriptors Random Forests -- Training MAE: 0.035829 ± 0.000468
 Descriptors Random Forests -- Test MAE: 0.035939
+
+- The above data shows that Morgan XGBoost is the best model at ~.0343 Hartree MAE. Train and test MAE differ by less than .002 so no overfitting 
+is seen to be happening.
+- The next best is actually Descriptors XGBoost at ~.0358 Hartree MAE. This signifies that XGBoost is better than Random Forests on this dataset.
+- After completing the project I became aware that XGBoost Random Forests is not a true random forest as it is only a thin wrapper over the normal
+XGBRegressor. As such a true Random Forests model may outperform this one. An sklearn Random Forest vs XGBoost model is a good next step for 2d geometry. 
+However, the difference will likely be minimal and 3d data models will be much better regardless.
+
+Future work
+- sklearn RF vs XGBoost 
+- 3d modeling like on SchNet 
+- SHAP interaction values(shap.Tree_explainer.shap_interaction_values). Measures how pairs of features interact. So how does FractionCSP3 + MolWt interact
+together compared to alone.
