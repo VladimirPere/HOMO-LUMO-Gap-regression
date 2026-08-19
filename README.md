@@ -44,6 +44,7 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
 ### regression_model.py
 - 80/20 test split Morgan data and fit to Ridge and Random Forests pipeline using JSON and parameters
 - Repeat using Descriptor data
+- Graph preds vs true data points for all 4 models
 - Graph train and test scores along with baseline
 
 ## Results
@@ -84,3 +85,47 @@ shortened from years to hours. This can be useful for drug discovery, as time is
 - 1024-bit fingerprints were used instead of 2048-bit due to memory constraints. Higher bit counts may improve Morgan model performance.
 - Gradient boosting methods (XGBoost, LightGBM) were not explored and may outperform Random Forests on this dataset.
 - SHAP values were not used in descriptors dataset. Feature selection may limit noise during training.
+
+---
+
+## Part 2 - Aromatic Subset Analysis With XGBoost and SHAP
+
+### Overview
+The second part of this project intends to append some limitations in the previous part
+- A Gradient boosting model (XGBoost) was explored in conjunction with Random Forests
+- A smaller dataset was used to decrease noise and have a higher accuracy. QM9 dataset was limited to only Aromatic molecules (21,981 of 132,430).
+- SHAP values were used to remove any noise in descriptors dataset.
+
+### Procedure
+#### data_preparation_p2.py
+- Similar structure to part 1 data preparation
+- Added Aromatic mask to only have molecules with at least 1 aromatic ring
+- Added histogram to show approximate distribution of gaps
+#### descriptors_p2.py
+- Almost identical to part 1 file except a few more descriptors were added
+#### fingerprints_p2.py
+- Identical to part 1 file except 2048 bits were used instead: Due to fewer molecules more space was available
+#### hyperparameter_search_p2.py
+- 80/20 Morgan data split for easier tuning
+- Morgan XGBoost and Random Forests pipelines made and tuned using Random Search
+- descriptor data loaded in 80/20 split
+- Descriptor XGBoost and Random Forest pipeline made and tuned using Random Search
+- Best parameters saved to json file
+#### feature_selection.py
+- Descriptor data loaded
+- XGBoost pipeline fitted using best_params_p2.json
+- SHAP values calculated and plotted for bar plot and beeswarm
+- features table printed and SHAP values below .0005 were removed
+- reduced features model retrained using new data and tested against all features model
+- All above repeated for Random Forests Descriptors models
+#### regression_model_p2.py
+- Data loaded and 80/20 train test split used
+- Morgan XGBoost and RF model trained on data, train and test scores appended to lists
+- Descriptors XGBoost and RF models trained, scores appended to lists
+- Predictions vs true values of all 4 models graphed
+- Train vs test MAE vs baseline of all 2 models graphed
+- All graphs saved
+
+### Results
+
+
