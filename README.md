@@ -21,7 +21,7 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
 - The HOMO-LUMO Gap can determine how easily a molecule can be excited. A low gap signifies an easily excitable molecule, while a big gap is less excitable.
   
 <p align="center">
-  <img src="images/Oxygen_molecule_orbitals_diagram-en.svg.webp" width="300" alt="Molecular Orbital diagram of Oxygen"><br>
+  <img src="part1/images/Oxygen_molecule_orbitals_diagram-en.svg.webp" width="300" alt="Molecular Orbital diagram of Oxygen"><br>
   Figure 1. Molecular Orbital diagram of Oxygen
 </p>
 
@@ -49,7 +49,7 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
 
 ## Results
 <p align="center">
-  <img src="images/model_comparison.png" width="500" alt="Graph of all 4 model's training and test scores"><br>
+  <img src="part1/images/model_comparison.png" width="500" alt="Graph of all 4 model's training and test scores"><br>
   Figure 2. Graph of all 4 model's training and test scores
 </p>
 
@@ -59,7 +59,7 @@ the HOMO to the LUMO, energy must be gained, and then when the electron drops ba
 - Descriptor RF showed an improvement of ~.0016 Hartree. A .0015 difference is significant enough to be overfitting, more tuning required.
 
 <p align="center">
-  <img src="images/rsquared_comparisons.png" width="500" alt="Comparison of true vs pred r^2 values"><br>
+  <img src="part1/images/rsquared_comparisons.png" width="500" alt="Comparison of true vs pred r^2 values"><br>
   Figure 3. Graph of model's true vs predicted values with R^2 values
 </p>
 
