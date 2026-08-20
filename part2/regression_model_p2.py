@@ -240,5 +240,3 @@ plt.tight_layout()
 os.makedirs(BASE_DIR / 'images', exist_ok=True)
 plt.savefig(BASE_DIR / 'images/model_comparison_p2.png', dpi=150, bbox_inches='tight')
 plt.show()
-
-# quick test
